@@ -38,4 +38,4 @@ jobs:
       with:
         context: .
         push: ${{ inputs.deploy == true }}
-        tags: ${{ github.repository_owner }}/theia-alpine:latest
+        tags: ${{ github.repository_owner }}/theia-alpine:keytar

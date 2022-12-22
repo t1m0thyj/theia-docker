@@ -23,13 +23,16 @@ RUN chmod g+rw /home && \
     mkdir -p /home/project && \
     chown -R theia:theia /home/theia && \
     chown -R theia:theia /home/project;
-RUN apk add --no-cache git openssh bash libsecret
+RUN apk add --no-cache git openssh bash dbus gnome-keyring libcap libsecret
 ENV HOME /home/theia
 WORKDIR /home/theia
 COPY --from=0 --chown=theia:theia /home/theia /home/theia
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 EXPOSE 3000
 ENV SHELL=/bin/bash \
     THEIA_DEFAULT_PLUGINS=local-dir:/home/theia/plugins
 ENV USE_LOCAL_GIT true
 USER theia
-ENTRYPOINT [ "node", "/home/theia/src-gen/backend/main.js", "/home/project", "--hostname=0.0.0.0" ]
+ENTRYPOINT ["/entrypoint.sh"]
+CMD [ "node", "/home/theia/src-gen/backend/main.js", "/home/project", "--hostname=0.0.0.0" ]
