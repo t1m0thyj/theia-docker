@@ -1,6 +1,6 @@
 # Theia Docker
 
-Based on https://github.com/theia-ide/theia-apps.
+Based on https://github.com/theia-ide/theia-apps
 
 ## How to Use
 
