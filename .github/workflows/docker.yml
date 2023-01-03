@@ -42,4 +42,4 @@ jobs:
         push: ${{ inputs.deploy == true }}
         tags: |
           ${{ github.repository_owner }}/theia-alpine:${{ steps.versions.outputs.THEIA_VERSION }}
-          ${{ inputs.theia-version == 'latest' && (github.repository_owner + '/theia-alpine:latest') }}
+          ${{ inputs.theia-version == 'latest' && format('{0}/theia-alpine:latest', github.repository_owner) }}
