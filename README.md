@@ -1,19 +1,33 @@
 # Theia Docker
 
-Based on https://github.com/theia-ide/theia-apps
+Based on https://github.com/theia-ide/theia-apps/tree/master/theia-docker
 
 ## How to Use
 
+The following pulls the image and runs Theia IDE on http://localhost:3000 with the current directory as a workspace. The option of `--init` is added to fix the [defunct process problem](https://github.com/theia-ide/theia-apps/issues/195).
+
 ```shell
-docker run -it --init --name theia -p 3000:3000 --cap-add=IPC_LOCK t1m0thyj/theia-alpine:keytar
-docker cp <path-to-vsix> theia:/home/theia/plugins
+# Linux, macOS, or PowerShell
+docker run -it --init -p 3000:3000 -v "$(pwd):/home/project:cached" t1m0thyj/theia-alpine
+
+# Windows (cmd.exe)
+docker run -it --init -p 3000:3000 -v "%cd%:/home/project:cached" t1m0thyj/theia-alpine
 ```
 
-To use Theia, navigate to `http://localhost:3000` in your browser.
+You can pass additional arguments to Theia after the image name, for example to enable debugging:
 
-To install the VSIX, navigate to the Extensions panel in Theia and select "Install from VSIX", then browse to the file you copied into the container.
+```shell
+# Linux, macOS, or PowerShell
+docker run -it --init -p 3000:3000 --expose 9229 -p 9229:9229 -v "$(pwd):/home/project:cached" t1m0thyj/theia-alpine --inspect=0.0.0.0:9229
 
-## TODO
+# Windows (cmd.exe)
+docker run -it --init -p 3000:3000 --expose 9229 -p 9229:9229 -v "%cd%:/home/project:cached" t1m0thyj/theia-alpine --inspect=0.0.0.0:9229
+```
 
-* [ ] Fix live reload of extensions not working
-* [ ] Test unlocking keyring and using Keytar
+## Tips and Tricks
+
+* To install a VS Code extension, copy the VSIX file into the container with the following command. Then run "Extensions: Install from VSIX" from the command palette in Theia and browse to the VSIX file.
+    ```shell
+    docker cp <path-to-vsix> theia:/home/theia/plugins
+    ```
+* To unlock the keyring so that Keytar can store secure credentials, pass these arguments to the `docker run` command: `--cap-add IPC_LOCK`

@@ -5,6 +5,7 @@ on:
     inputs:
       theia-version:
         description: "Specify Theia version"
+        default: "latest"
         required: true
         type: string
       deploy:
@@ -25,6 +26,7 @@ jobs:
         node-version: "lts/*"
 
     - name: Generate package.json
+      id: versions
       run: node generatePackageJson.js ${{ inputs.theia-version }}
 
     - name: Login to Docker Hub
@@ -38,4 +40,6 @@ jobs:
       with:
         context: .
         push: ${{ inputs.deploy == true }}
-        tags: ${{ github.repository_owner }}/theia-alpine:keytar
+        tags: |
+          ${{ github.repository_owner }}/theia-alpine:${{ steps.versions.outputs.THEIA_VERSION }}
+          ${{ inputs.theia-version == "latest" && (github.repository_owner + "/theia-alpine:latest") }}
