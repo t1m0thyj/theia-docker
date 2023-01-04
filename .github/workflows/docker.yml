@@ -6,7 +6,7 @@ on:
       theia-version:
         description: "Specify Theia version"
         default: "latest"
-        required: true
+        required: false
         type: string
       deploy:
         description: "Push image to DockerHub"
