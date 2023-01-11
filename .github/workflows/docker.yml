@@ -1,6 +1,8 @@
 name: Docker Image CI
 
 on:
+  schedule:
+    - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
       theia-version:
@@ -27,7 +29,7 @@ jobs:
 
     - name: Generate package.json
       id: versions
-      run: node generatePackageJson.js ${{ inputs.theia-version }}
+      run: node generatePackageJson.js ${{ inputs.theia-version || 'next' }}
 
     - name: Login to Docker Hub
       uses: docker/login-action@v2
@@ -39,7 +41,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         context: .
-        push: ${{ inputs.deploy == true }}
+        push: ${{ inputs.deploy == true || github.event_name == 'schedule' }}
         tags: |
           ${{ github.repository_owner }}/theia-alpine:${{ steps.versions.outputs.THEIA_VERSION }}
           ${{ inputs.theia-version == 'latest' && format('{0}/theia-alpine:latest', github.repository_owner) }}

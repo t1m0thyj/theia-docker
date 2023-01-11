@@ -12,7 +12,8 @@ async function getTheiaVersion() {
 }
 
 async function getTheiaPlugins(theiaVersion) {
-    let response = await fetch(`https://raw.githubusercontent.com/eclipse-theia/theia/v${theiaVersion}/dev-packages/application-package/src/api.ts`);
+    const theiaGitRef = theiaVersion !== "next" ? `v${theiaVersion}` : "master";
+    let response = await fetch(`https://raw.githubusercontent.com/eclipse-theia/theia/${theiaGitRef}/dev-packages/application-package/src/api.ts`);
     const vscodeVersion = (await response.text()).match(/DEFAULT_SUPPORTED_API_VERSION = '(\d+\.\d+\.\d+)'/)[1];
     fs.appendFileSync(outputPath, `VSCODE_VERSION=${vscodeVersion}\n`);
     response = await fetch("https://open-vsx.org/api/vscode/");
