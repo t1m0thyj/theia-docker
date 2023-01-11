@@ -44,4 +44,4 @@ jobs:
         push: ${{ inputs.deploy == true || github.event_name == 'schedule' }}
         tags: |
           ${{ github.repository_owner }}/theia-alpine:${{ steps.versions.outputs.THEIA_VERSION }}
-          ${{ inputs.theia-version == 'latest' && format('{0}/theia-alpine:latest', github.repository_owner) }}
+          ${{ inputs.theia-version == 'latest' && format('{0}/theia-alpine:latest', github.repository_owner) || '' }}
