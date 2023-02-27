@@ -23,10 +23,10 @@ async function getTheiaPlugins(theiaVersion) {
     const theiaVersion = await getTheiaVersion();
     const packageJson = JSON.parse(fs.readFileSync("package.json.template", "utf-8"));
     for (const k of Object.keys(packageJson.dependencies)) {
-        packageJson.dependencies[k] = theiaVersion;
+        packageJson.dependencies[k] = theiaVersion.replace(/-\w+$/, "");
     }
     for (const k of Object.keys(packageJson.devDependencies)) {
-        packageJson.devDependencies[k] = theiaVersion;
+        packageJson.devDependencies[k] = theiaVersion.replace(/-\w+$/, "");
     }
     packageJson.theiaPlugins = await getTheiaPlugins(theiaVersion);
     fs.writeFileSync("theia.package.json", JSON.stringify(packageJson, null, 4) + "\n");
