@@ -14,7 +14,6 @@
         "@theia/callhierarchy": "latest",
         "@theia/debug": "latest",
         "@theia/editor-preview": "latest",
-        "@theia/electron": "latest",
         "@theia/file-search": "latest",
         "@theia/getting-started": "latest",
         "@theia/git": "latest",
@@ -33,7 +32,8 @@
         "@theia/vsx-registry": "latest"
     },
     "devDependencies": {
-        "@theia/cli": "latest"
+        "@theia/cli": "latest",
+        "@theia/electron": "latest"
     },
     "scripts": {
         "preinstall": "node-gyp install"
