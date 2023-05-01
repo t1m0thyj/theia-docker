@@ -4,7 +4,7 @@ RUN apk add --no-cache make pkgconfig gcc g++ python3 libx11-dev libxkbfile-dev 
 WORKDIR /home/theia
 ADD theia.package.json ./package.json
 ARG GITHUB_TOKEN
-RUN yarn --pure-lockfile && \
+RUN yarn && cat yarn.lock && \
     NODE_OPTIONS="--max_old_space_size=4096" yarn theia build && \
     yarn theia download:plugins && \
     yarn --production && \
