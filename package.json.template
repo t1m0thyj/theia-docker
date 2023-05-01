@@ -14,6 +14,7 @@
         "@theia/callhierarchy": "latest",
         "@theia/debug": "latest",
         "@theia/editor-preview": "latest",
+        "@theia/electron": "latest",
         "@theia/file-search": "latest",
         "@theia/getting-started": "latest",
         "@theia/git": "latest",
