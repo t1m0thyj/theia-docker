@@ -2,8 +2,8 @@ name: Docker Image CI
 
 on:
   pull_request:
-  schedule:
-    - cron: "0 6 * * *"
+#   schedule:
+#     - cron: "0 6 * * *"
   workflow_dispatch:
     inputs:
       theia-version:
