@@ -1,5 +1,7 @@
 # Theia Docker
 
+**Note:** This repository and Docker image have moved to [zowe-sample-dockerfiles](https://github.com/zowe/zowe-sample-dockerfiles/pkgs/container/zowe-sample-dockerfiles-ze-theia-slim).
+
 Based on https://github.com/theia-ide/theia-apps/tree/master/theia-docker
 
 ## How to Use
